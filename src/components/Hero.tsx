@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Lenis from "lenis";
 import hero1 from "@/assets/hero-1.jpg";
 import hero2 from "@/assets/hero-2.jpg";
@@ -8,8 +8,6 @@ import hero4 from "@/assets/hero-4.jpg";
 const navLinks = ["Philosophy", "Process", "Projects", "Services"];
 
 const Hero = () => {
-  const layersRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.4,
@@ -20,12 +18,6 @@ const Hero = () => {
     let rafId = 0;
     const raf = (time: number) => {
       lenis.raf(time);
-      const y = lenis.scroll;
-      const layers = layersRef.current?.querySelectorAll<HTMLElement>("[data-speed]");
-      layers?.forEach((el) => {
-        const speed = parseFloat(el.dataset.speed || "0");
-        el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
-      });
       rafId = requestAnimationFrame(raf);
     };
     rafId = requestAnimationFrame(raf);
@@ -64,36 +56,24 @@ const Hero = () => {
 
       {/* Hero */}
       <section className="relative min-h-screen overflow-hidden">
-        <div ref={layersRef} className="absolute inset-0">
+        <div className="absolute inset-0">
           {/* Top right large */}
-          <div
-            data-speed="0.12"
-            className="absolute top-24 right-[6%] w-[22vw] max-w-[340px] aspect-[3/4] overflow-hidden rounded-sm will-change-transform"
-          >
+          <div className="absolute top-24 right-[6%] w-[22vw] max-w-[340px] aspect-[3/4] overflow-hidden rounded-sm">
             <img src={hero1} alt="Sunlit minimal living room" className="h-full w-full object-cover" width={896} height={1152} />
           </div>
 
           {/* Bottom left medium */}
-          <div
-            data-speed="-0.08"
-            className="absolute bottom-[10%] left-[5%] w-[18vw] max-w-[280px] aspect-[3/4] overflow-hidden rounded-sm will-change-transform"
-          >
+          <div className="absolute bottom-[10%] left-[5%] w-[18vw] max-w-[280px] aspect-[3/4] overflow-hidden rounded-sm">
             <img src={hero2} alt="Travertine dining nook" className="h-full w-full object-cover" loading="lazy" width={896} height={1152} />
           </div>
 
           {/* Mid right small */}
-          <div
-            data-speed="0.22"
-            className="absolute bottom-[18%] right-[14%] w-[12vw] max-w-[180px] aspect-[3/4] overflow-hidden rounded-sm will-change-transform hidden md:block"
-          >
+          <div className="absolute bottom-[18%] right-[14%] w-[12vw] max-w-[180px] aspect-[3/4] overflow-hidden rounded-sm hidden md:block">
             <img src={hero3} alt="Calm bedroom" className="h-full w-full object-cover" loading="lazy" width={896} height={1152} />
           </div>
 
           {/* Top left tiny */}
-          <div
-            data-speed="-0.05"
-            className="absolute top-[28%] left-[18%] w-[10vw] max-w-[150px] aspect-[3/4] overflow-hidden rounded-sm will-change-transform hidden lg:block"
-          >
+          <div className="absolute top-[28%] left-[18%] w-[10vw] max-w-[150px] aspect-[3/4] overflow-hidden rounded-sm hidden lg:block">
             <img src={hero4} alt="Arched hallway" className="h-full w-full object-cover" loading="lazy" width={896} height={1152} />
           </div>
         </div>
